@@ -1,8 +1,10 @@
 package ch06;
 import java.util.Scanner;
 
-//버블 정렬 (version 2) - "멈춤" 도입
-public class BubbleSort2 {
+//버블 정렬 (version 3)
+//어떤 시점 이후 교환이 수행되지 않는다면
+//그보다 앞쪽의 요소는 이미 정렬을 마친 상태로 간주하고 그 앞 애들은 pass~
+public class BubbleSort3 {
 	
 	// a[idx1]과 a[idx2]의 값을 바꿔줌! swap!
 	static void swap(int[] a, int idx1, int idx2) {
@@ -12,16 +14,17 @@ public class BubbleSort2 {
 	} // 이 swap 메소드 안에서 값의 이동이 3번 일어남!!
 	
 	
-	// 버블 정렬 (version 2) - improved one
+	// 버블 정렬 - 버전3
 	static void bubbleSort(int[] a, int n) {
-		for (int i=0; i < n-1; i++) {// 패스는 총  n-1번 발생해야 하지!
-			int exchg = 0; // 패스 교환횟수 기록
-			for (int j = n-1; j > i; j--) // 페어 비교를 맨 뒤에서부터 할꺼니까 이렇게 설정!!
+		int k = 0; // a[k]보다 앞쪽은 정렬을 다 마친 상태
+		while (k < n-1) {
+			int last = n-1;	// 마지막으로 요소를 교환한 위치 --> n-1부터 시작
+			for (int j = n-1; j > k; j--) // 페어 비교를 맨 뒤에서부터 할꺼니까 이렇게 설정!!
 				if (a[j-1] > a[j]) {// 교환이 필요한가? check
 					swap(a, j-1, j);
-					exchg++;
+					last = j;
 				}
-			if (exchg == 0) break; // 교환횟수가 0이면 종료-멈춤.
+			k = last;
 		}
 	}
 	
