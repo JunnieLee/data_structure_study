@@ -1,7 +1,7 @@
 package ch06;
 import java.util.Scanner;
 
-public class SelectionSort {
+public class Q6 {
 	
 	// a[idx1]과 a[idx2]의 값을 바꿔줌! swap!
 	static void swap(int[] a, int idx1, int idx2) {
@@ -19,6 +19,24 @@ public class SelectionSort {
 			for (int j = i+1; j < n; j++)
 				if (a[j]<a[min])
 					min = j;
+			
+			String text = "";
+			
+			for (int m=0; m < n; m++) {
+				if (m==i)
+					text += new String("* ");
+				else if (m==min)
+					text += new String("+ ");
+				else
+					text += new String("  ");
+			}
+			System.out.println();
+			System.out.println(text);
+			
+			for (int m=0; m < n; m++) {
+				System.out.print(a[m]+" ");
+			}
+			
 			swap(a, i, min); // 아직 정렬되지 않은 부분의 첫 요소와 가장 작은 요소를 교환!
 		}	
 	}
@@ -37,10 +55,8 @@ public class SelectionSort {
 			x[i] = stdIn.nextInt();
 		}
 		
-		selectionSort(x, nx); // 배열 x를 단순선택정렬 합니다.
-		
-		System.out.println("오름차순으로 정리했습니다.");
-		for (int i = 0; i < nx; i++)
-			System.out.println("x["+ i + "] = " + x[i]);
+		System.out.println("교환과정을 출력합니다.");
+		selectionSort(x, nx); // 배열 x를 단순선택정렬 및 그 과정을 출력 합니다.
+	
 	}
 }
