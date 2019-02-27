@@ -119,4 +119,59 @@ public class IntSet {
 		return temp.toString();
 	}
 	
+	// Q1. 공집합인지 확인합니다.
+	public boolean isEmpty() {
+		return num==0? true:false;
+	}
+	
+	// Q1. 집합이 가득 찼는지 확인합니다.
+	public boolean isFull() {
+		return num==max? true:false;
+	}
+	
+	// Q1. 집합을 초기화 합니다. (모든 요소를 삭제)
+	public void clear() {
+		num = 0;
+		set = new int[max];
+	}
+	
+	// Q2. 집합s의 모든 요소를 추가합니다. - 집합변경시 true, 변경 안될시 false
+	// 변경안되는 경우 ? --> s가 공집합이거나, s의 요소가 이미 본 집합에 다 있는 경우
+	public boolean unionWith (IntSet s) {
+		int original = num; // 처음 요소 개수
+		
+		for (int i=0; i < s.num; i++)
+			add(s.set[i]);
+		
+		return original == num? true:false;
+	}
+	
+	// Q2. 집합 s에 들어있는 요소만 남기고 나머지 요소들을 모두 삭제합니다. - 집합변경시 true, 변경 안될시 false
+	public boolean intersectionWith (IntSet s) {
+		int original = num; // 처음 요소 개수
+		
+		int[] helper = new int[] {};
+		
+		for (int i=0; i < num; i++)
+			for (int j=0; j < s.num; j++)
+				if (set[i]==set[j])
+						helper[helper.length -1] = set[i];
+		
+		set = helper; // 교집합으로 남은 애들만 모아서 set에 그대로 가져다 복사붙여넣기!
+		
+		return original == num? true:false;
+	}
+	
+	
+	// Q2. 집합 s에 들어있는 요소만 삭제합니다. - 집합변경시 true, 변경 안될시 false
+	public boolean differenceWith (IntSet s) {
+		int original = num; // 처음 요소 개수
+
+		for (int i=0; i < num; i++)
+			for (int j=0; j < s.num; j++)
+				if (set[i]==set[j])
+						remove(set[i]);
+				
+		return original == num? true:false;
+	}
 }
