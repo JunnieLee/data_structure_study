@@ -174,4 +174,60 @@ public class IntSet {
 				
 		return original == num? true:false;
 	}
+	
+	// Q3. 집합 s의 부분집합인지 확인합니다.
+	public boolean isSubsetOf(IntSet s) {
+		
+		int cnt = 0; // 둘의 교집합 element 개수ㄴ
+		
+		for (int i=0; i<num;i++)
+			for (int j=0; j<s.num;j++) {
+				if (set[i]==set[j]) cnt++;
+			}
+		
+		return cnt==num?true:false;
+	}
+	
+	
+	// Q3. 집합 s의 진부분집합인지 확인합니다.
+	public boolean isProperSubsetOf(IntSet s) {
+		// 진부분집합이면, 이 둘이 같으면 안됨.
+		
+		int cnt = 0; // 둘의 교집합 element 개수ㄴ
+		
+		for (int i=0; i<num;i++)
+			for (int j=0; j<s.num;j++) {
+				if (set[i]==set[j]) cnt++;
+			}
+		
+		return (cnt==num)&&(cnt!=s.num)?true:false; 
+		// 교집합의 수가 s의 element 수와는 일치하지 않도록 조건추가~
+		
+	}
+	
+	// Q4. s1과 s2의 교집합을 복사합니다.
+	public void intersectionOf(IntSet s1, IntSet s2) {
+		
+		copyFrom(s1); // 집합 s1을 복사합니다.
+
+		for (int i=0; i < s1.num; i++) {// 집합 s2의 요소를 추가합니다.
+			if (s2.contains(s1.set[i])==false) //s2에 없는 s1은 s1에서 제거해~
+				s1.remove(s1.set[i]);
+		}
+			
+	}
+	
+	// Q5. s1과 s2의 차집합을 복사합니다.
+	public void intersetionOf(IntSet s1, IntSet s2) {
+		// s1-s2
+		
+		copyFrom(s1); // 집합 s1을 복사합니다.
+
+		for (int i=0; i < s1.num; i++) {// 집합 s2의 요소를 추가합니다.
+			if (s2.contains(s1.set[i])) //s2에 없는 s1은 s1에서 제거해~
+				s1.remove(s1.set[i]);
+		}
+	}
+	
+	
 }
